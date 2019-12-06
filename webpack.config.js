@@ -5,7 +5,7 @@ var path = require('path'),
 
 var config = {
     entry: {
-        main: ['babel-polyfill', './src/MusicFestival.Vue.Template/Assets/Scripts/main.js', './src/MusicFestival.Vue.Template/Assets/Styles/Main.less']
+        main: ['./src/MusicFestival.Vue.Template/Assets/Scripts/main.js', './src/MusicFestival.Vue.Template/Assets/Styles/Main.less', './src/MusicFestival.Vue.Template/Assets/React/Scripts/App.jsx']
     },
     output: {
         path: path.resolve(__dirname, './src/MusicFestival.Vue.Template/Assets/bundled/'),
@@ -17,6 +17,7 @@ var config = {
         new webpack.WatchIgnorePlugin([/node_modules/]), // turn off watcher for node_modules and our vueImports.js file created above
     ],
     resolve: {
+        extensions: ['*', '.js', '.jsx'],
         alias: {
             vue: 'vue/dist/vue.js',
             '@': path.join(__dirname, 'src/MusicFestival.Vue.Template/Assets')
@@ -45,11 +46,11 @@ var config = {
             })
         },
         {
-            test: /\.js$/,
-            exclude: [/node_modules/],
-            use: [{
-                loader: 'babel-loader'
-            }]
+            test: /\.(js|jsx)$/,
+            exclude: /(node_modules)/,
+            use: {
+              loader: 'babel-loader'
+            }
         },
         {
             test: /\.vue$/,
