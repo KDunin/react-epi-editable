@@ -23,7 +23,7 @@ trim_trailing_whitespace = false
 insert_final_newline = false
 
 # Ignore these files
-[{LICENSE,src/MusicFestival.Vue.Template/App_Data/**,src/MusicFestival.Vue.Template/modules/**,node_modules/**}]
+[{LICENSE,src/MusicFestival.React.Template/App_Data/**,src/MusicFestival.React.Template/modules/**,node_modules/**}]
 indent_style = unset
 indent_size = unset
 insert_final_newline = unset

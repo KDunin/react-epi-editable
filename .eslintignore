@@ -1,4 +1,4 @@
-src/MusicFestival.Vue.Template/App_Data
-src/MusicFestival.Vue.Template/Assets/bundled
-src/MusicFestival.Vue.Template/modules
+src/MusicFestival.React.Template/App_Data
+src/MusicFestival.React.Template/Assets/bundled
+src/MusicFestival.React.Template/modules
 node_modules

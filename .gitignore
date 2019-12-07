@@ -243,10 +243,10 @@ ModelManifest.xml
 .fake/
 
 # Episerver Specific
-/src/MusicFestival.Vue.Template/License.config
-/src/MusicFestival.Vue.Template/episerverfind.config
+/src/MusicFestival.React.Template/License.config
+/src/MusicFestival.React.Template/episerverfind.config
 
 # Bundled FE Files
-/src/MusicFestival.Vue.Template/Assets/bundled/
+/src/MusicFestival.React.Template/Assets/bundled/
 
 .idea

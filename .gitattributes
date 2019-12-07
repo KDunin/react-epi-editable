@@ -31,7 +31,6 @@
 *.js        text
 *.less      text
 *.md        text
-*.vue       text
 
 ## Bash and Linux text files
 *.sh        text eol=lf

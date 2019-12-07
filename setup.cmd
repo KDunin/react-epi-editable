@@ -6,11 +6,11 @@ CALL npm ci
 IF %errorlevel% NEQ 0 EXIT /B %errorlevel%
 
 REM Restore nuget packages
-CALL .\.nuget\nuget.exe restore MusicFestival.Vue.Template.sln
+CALL .\.nuget\nuget.exe restore MusicFestival.React.Template.sln
 IF %errorlevel% NEQ 0 EXIT /B %errorlevel%
 
 REM Set up database
-SET MusicFestival=src\MusicFestival.Vue.Template
+SET MusicFestival=src\MusicFestival.React.Template
 IF EXIST %MusicFestival%\App_Data (
     ECHO Remove all files from the app data folder
     DEL %MusicFestival%\App_Data\*.* /F /Q || Exit /B 1

@@ -4,27 +4,29 @@ var path = require('path'),
     webpack = require('webpack');
 
 var config = {
+    mode: 'development',
     entry: {
-        main: ['./src/MusicFestival.Vue.Template/Assets/Scripts/main.js', './src/MusicFestival.Vue.Template/Assets/Styles/Main.less', './src/MusicFestival.Vue.Template/Assets/React/Scripts/App.jsx']
+        main: ['./src/MusicFestival.React.Template/Assets/Styles/Main.less', './src/MusicFestival.React.Template/Assets/Scripts/index.js']
     },
     output: {
-        path: path.resolve(__dirname, './src/MusicFestival.Vue.Template/Assets/bundled/'),
-        publicPath: '/src/MusicFestival.Vue.Template/Assets/bundled/',
+        path: path.resolve(__dirname, './src/MusicFestival.React.Template/Assets/bundled/'),
+        publicPath: '/src/MusicFestival.React.Template/Assets/bundled/',
         filename: '[name].bundle.js'
     },
     plugins: [
         new extractTextPlugin('[name].bundle.css'), // save the css as external files instead of bundling them into the javascripts
         new webpack.WatchIgnorePlugin([/node_modules/]), // turn off watcher for node_modules and our vueImports.js file created above
+        new webpack.LoaderOptionsPlugin({ options: {} }),
     ],
     resolve: {
         extensions: ['*', '.js', '.jsx'],
-        alias: {
-            vue: 'vue/dist/vue.js',
-            '@': path.join(__dirname, 'src/MusicFestival.Vue.Template/Assets')
-        }
+        // alias: {
+        //     vue: 'vue/dist/vue.js',
+        //     '@': path.join(__dirname, 'src/MusicFestival.React.Template/Assets')
+        // }
     },
     module: {
-        loaders: [{
+        rules: [{
             test: /\.less$/,
             use: extractTextPlugin.extract({
                 use: [
@@ -49,13 +51,8 @@ var config = {
             test: /\.(js|jsx)$/,
             exclude: /(node_modules)/,
             use: {
-              loader: 'babel-loader'
+                loader: 'babel-loader'
             }
-        },
-        {
-            test: /\.vue$/,
-            exclude: [/node_modules/],
-            loader: 'vue-loader'
         },
         {
             test: /\.svg$/,
@@ -72,14 +69,14 @@ var config = {
                 limit: 10000
             }
         },
-        {
-            test: /\.(js|vue)$/,
-            exclude: /node_modules/,
-            loader: 'eslint-loader',
-            options: {
-                configFile: '.eslintrc.js'
-            }
-        }
+        // {
+        //     test: /\.(js|jsx)$/,
+        //     exclude: /node_modules/,
+        //     loader: 'eslint-loader',
+        //     options: {
+        //         configFile: '.eslintrc.js'
+        //     }
+        // }
         ]
     },
     stats: {

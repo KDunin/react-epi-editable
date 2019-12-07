@@ -9,7 +9,7 @@ IF "%1"=="Release" (set CONFIGURATION=Release) ELSE (set CONFIGURATION=Debug)
 ECHO Building in %CONFIGURATION%
 
 REM Build Server
-CALL msbuild MusicFestival.Vue.Template.sln /m /property:Configuration=%CONFIGURATION%
+CALL msbuild MusicFestival.React.Template.sln /m /property:Configuration=%CONFIGURATION%
 IF %errorlevel% NEQ 0 EXIT /B %errorlevel%
 
 REM Build Client
