@@ -11,7 +11,7 @@ class PageComponentSelector extends Component {
         this.props.updateModelByUrl(url);
 
         this.props.history.listen(() => {
-            console.log("location changed");
+            console.log("location changed", url);
 
             // if (url !== url) {
             // }

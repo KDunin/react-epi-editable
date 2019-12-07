@@ -351,6 +351,7 @@
     <Content Include="Assets\Scripts\components\pages\ArtistDetailsPage.jsx" />
     <Content Include="Assets\Scripts\components\widgets\EpiLink.jsx" />
     <Content Include="Assets\Scripts\components\widgets\Hero.jsx" />
+    <Content Include="Assets\Scripts\components\widgets\ConditionalImage.jsx" />
     <Content Include="Assets\Scripts\components\widgets\LanguageSelector.jsx" />
     <Content Include="Assets\Scripts\components\widgets\Modal.jsx" />
     <Content Include="Assets\Scripts\index.js" />
@@ -375,6 +376,7 @@
     <Content Include="Assets\Scripts\store\modules\appContext.js" />
     <Content Include="Assets\Scripts\store\modules\epiContext.js" />
     <Content Include="Assets\Scripts\store\modules\epiDataModel.js" />
+    <Content Include="Assets\Styles\Common\variables.js" />
     <Content Include="Content\editor.css" />
     <Content Include="postcss.config.js" />
     <Content Include="webpack.config.js" />

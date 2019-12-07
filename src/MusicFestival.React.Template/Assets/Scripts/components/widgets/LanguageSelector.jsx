@@ -1,5 +1,6 @@
 ﻿import React, { Component } from "react";
 import EpiLink from "./EpiLink";
+import variables from "../../../Styles/Common/variables";
 
 export class LanguageSelector extends Component {
     render() {
@@ -22,8 +23,6 @@ export class LanguageSelector extends Component {
                     </li>
                 ))}
                 <style jsx>{`
-                    @import "../../../Styles/Common/variables.less";
-
                     ul {
                         list-style: none;
                         margin: 0;
@@ -53,14 +52,14 @@ export class LanguageSelector extends Component {
                         position: absolute;
                         width: 100%;
                         height: 2px;
-                        background: @colorTurquoise;
+                        background: ${variables.colors.colorTurquoise};
                         top: 13px;
                     }
 
                     .lang li a {
                         display: block;
                         user-select: none;
-                        font: 10px @fontSubHeading;
+                        font: 10px ${variables.fonts.fontSubHeading};
                         text-transform: uppercase;
                         cursor: pointer;
                         text-decoration: none;

@@ -2,11 +2,11 @@
 
 import BlockComponentSelector from "./BlockComponentSelector";
 
-const DISPLAY_OPTIONS = {
-    full: "col-md-12",
-    wide: "col-md-4",
-    half: "col-md-6",
-    narrow: "col-md-4"
+export const DISPLAY_OPTIONS = {
+    full: "u-md-sizeFull",
+    wide: "u-md-size2of3",
+    half: "u-md-size1of2",
+    narrow: "u-md-size1of3"
 };
 
 export class ContentArea extends Component {
@@ -30,18 +30,19 @@ export class ContentArea extends Component {
         const model = this.props.model || [];
 
         return (
-            <React.Fragment>
+            <section className="Grid Grid--alignMiddle Grid--gutterA ContentArea">
                 {model.map((block, index) => (
                     <div
                         key={index}
                         className={
-                            "mb-5 " + this.getDisplayOption(block.displayOption)
+                            "Grid-cell " +
+                            this.getDisplayOption(block.displayOption)
                         }
                     >
                         <BlockComponentSelector model={block} />
                     </div>
                 ))}
-            </React.Fragment>
+            </section>
         );
     }
 }

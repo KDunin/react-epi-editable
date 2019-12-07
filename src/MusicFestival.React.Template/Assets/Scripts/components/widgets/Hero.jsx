@@ -1,28 +1,31 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Component } from "react";
 
 export class Hero extends Component {
     render() {
         const { title, subtitle, heroimage } = this.props;
 
         const heroStyles = {
-            backgroundImage: `url(${heroimage})`,
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            color: 'white',
-            textAlign: 'center'
+            backgroundImage: `url(${heroimage})`
         };
 
         return (
-            <div className="jumbotron jumbotron-fluid" style={heroStyles}>
-                <div className="container">
-                    <h1 className="display-4" data-epi-property-name="Title">
-                        {title}
-                    </h1>
-                    <p className="lead" data-epi-property-name="Subtitle">
-                        {subtitle}
-                    </p>
+            <section className="Hero">
+                <div className="Hero-content Page-container">
+                    <h1 data-epi-property-name="Title">{title}</h1>
+
+                    <h5 data-epi-property-name="Subtitle">{subtitle}</h5>
+
+                    {/* <epi-property
+                        v-show="!epiDisableEditing"
+                        property-name="HeroImage"
+                    ></epi-property> */}
                 </div>
-            </div>
+                <div
+                    className="Hero-image"
+                    v-if="heroimage"
+                    style={heroStyles}
+                ></div>
+            </section>
         );
     }
 }

@@ -20,10 +20,10 @@ var config = {
     ],
     resolve: {
         extensions: ['*', '.js', '.jsx'],
-        // alias: {
+        alias: {
         //     vue: 'vue/dist/vue.js',
-        //     '@': path.join(__dirname, 'src/MusicFestival.React.Template/Assets')
-        // }
+            '@': path.join(__dirname, 'src/MusicFestival.React.Template/Assets')
+        }
     },
     module: {
         rules: [{

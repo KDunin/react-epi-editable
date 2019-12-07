@@ -1,34 +1,42 @@
-﻿import React from 'react';
+﻿import React from "react";
+import ConditionalImage from "../widgets/ConditionalImage";
 
-export class ContentBlock extends React.Component {
-    imageAlignment(direction) {
-        if (direction === 'Right') {
-            return 'row align-items-center flex-column-reverse flex-lg-row';
-        } else {
-            return 'row align-items-center';
-        }
-    }
+const ContentBlock = ({ model }) => {
+    const imageAlignment =
+        model.imageAlignment === "Right" ? "Grid--rowReverse" : "";
 
-    render() {
-        const { model } = this.props;
-        const imageAlignment = this.imageAlignment(model.imageAlignment);
-
-        return (
-            <div className={imageAlignment}>
-                <div className="col-md-6">
-                    <img className="img-fluid" src={model.image} alt="alt" />
-                </div>
-
-                <div className="col-md-6">
-                    <h2 data-epi-property-name="Title">{model.title}</h2>
+    return (
+        <div className="Page-container ContentBlock">
+            <div
+                className={`Grid Grid--alignMiddle Grid--gutterA ${imageAlignment}`}
+            >
+                {model.image && (
+                    <div className="Grid-cell u-md-size1of2">
+                        <ConditionalImage
+                            src={model.image}
+                            alt={model.title}
+                            v-epi-edit="'Image'"
+                        ></ConditionalImage>
+                    </div>
+                )}
+                <div
+                    className={`Grid-cell ${
+                        model.image ? "u-md-size1of2" : ""
+                    }`}
+                >
+                    <h2
+                        v-epi-edit="'Title'"
+                        dangerouslySetInnerHTML={{ __html: model.title }}
+                    ></h2>
                     <div
-                        data-epi-property-name="Content"
+                        v-epi-edit="'Content'"
                         dangerouslySetInnerHTML={{ __html: model.content }}
-                    />
+                    ></div>
+                    {/* <epi-property v-if="!model.image" property-name="image"></epi-property> */}
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 export default ContentBlock;

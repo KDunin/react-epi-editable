@@ -19,57 +19,82 @@ class LandingPage extends Component {
         const { model } = this.props;
 
         return (
-            <div className="LandingPage">
-                <nav className="Page-container PageHeader NavBar">
-                    <button
-                        className="Button buy-ticket-button"
-                        onClick={this.handleShow}
-                    >
-                        {model.buyTicketBlock.heading}
-                    </button>
-                    <LanguageSelector
-                        existingLanguages={model.existingLanguages}
-                        currentLanguage={model.language}
+            <>
+                <div className="LandingPage">
+                    <nav className="Page-container PageHeader NavBar">
+                        <button
+                            className="Button buy-ticket-button"
+                            onClick={this.handleShow}
+                        >
+                            {model.buyTicketBlock.heading}
+                        </button>
+                        <LanguageSelector
+                            existingLanguages={model.existingLanguages}
+                            currentLanguage={model.language}
+                        />
+                    </nav>
+
+                    <Hero
+                        title={model.title}
+                        subtitle={model.subtitle}
+                        heroimage={model.heroImage}
                     />
-                </nav>
 
-                <Hero
-                    title={model.title}
-                    subtitle={model.subtitle}
-                    heroimage={model.heroImage}
-                />
+                    {model.artistsLink.expandedValue && (
+                        <EpiLink
+                            classname="Button modal-default-button landing-page-button"
+                            url={model.artistsLink.expandedValue.url}
+                        >
+                            {model.artistsLink.expandedValue.name}
+                        </EpiLink>
+                    )}
 
-                {model.artistsLink.expandedValue && (
-                    <EpiLink
-                        classname="Button modal-default-button landing-page-button"
-                        url={model.artistsLink.expandedValue.url}
+                    <main
+                        className="Page-container"
+                        data-epi-edit="MainContentArea"
                     >
-                        {model.artistsLink.expandedValue.name}
-                    </EpiLink>
-                )}
+                        <div className="row">
+                            <ContentArea model={model.mainContentArea} />
+                        </div>
 
-                <main
-                    className="Page-container"
-                    data-epi-edit="MainContentArea"
-                >
-                    <div className="row">
-                        <ContentArea model={model.mainContentArea} />
-                    </div>
+                        <div className="row">
+                            {/* <ContentArea model={model.secondaryContentArea} /> */}
+                        </div>
+                    </main>
 
-                    <div className="row">
-                        {/* <ContentArea model={model.secondaryContentArea} /> */}
-                    </div>
-                </main>
+                    <footer>
+                        <div data-epi-edit="FooterContentArea">
+                            <ContentArea model={model.footerContentArea} />
+                        </div>
+                        <div className="FooterBottom">
+                            <h6>&copy; Music Festival 2018</h6>
+                        </div>
+                    </footer>
+                </div>
+                <style jsx>{`
+                    main,
+                    footer {
+                        overflow: hidden;
+                        width: 100%;
+                    }
 
-                <footer>
-                    <div data-epi-edit="FooterContentArea">
-                        <ContentArea model={model.footerContentArea} />
-                    </div>
-                    <div className="FooterBottom">
-                        <h6>&copy; Music Festival 2018</h6>
-                    </div>
-                </footer>
-            </div>
+                    footer .ContentArea.Grid--gutterA {
+                        /* Disable gutters because we want this content area to be full width. */
+                        margin: 0;
+                    }
+
+                    .LandingPage :global(.landing-page-button) {
+                        position: absolute;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        margin-top: 1em;
+                    }
+
+                    .buy-ticket-button {
+                        margin-top: 11px;
+                    }
+                `}</style>
+            </>
         );
     }
 }
