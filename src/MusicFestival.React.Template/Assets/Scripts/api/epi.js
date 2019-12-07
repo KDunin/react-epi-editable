@@ -28,7 +28,7 @@ export default {
      *  - updated data after a `beta/contentSaved` message, which has the content link
      */
     getContentByContentLink: (contentLink, params = {}) =>
-        get(`${applicationPath}api/episerver/v2.0/`, `content/${contentLink}`, Object.assign({parameters, params})),
+        get(`${applicationPath}api/episerver/v2.0/`, `content/${contentLink}`, {...parameters, ...params}),
 
     /**
      * Getting data from ContentDeliveryAPI through regular routing (friendly URLs) was added in ContentDeliveryAPI 2.3.0.
@@ -36,7 +36,7 @@ export default {
      *  - page data, through the redux `epiDataModel` module
      */
     getContentByFriendlyUrl: (friendlyUrl, params = {}) =>
-        get('/', friendlyUrl, Object.assign({parameters, params}), { Accept: 'application/json'}),
+        get('/', friendlyUrl, {...parameters, ...params}, { Accept: 'application/json'}),
 
     /**
      * Getting the children of the page with ContentDeliveryAPI is enabled by
@@ -55,6 +55,6 @@ export default {
         // Concatenate the friendly URL with "/children" for the Content API
         const callUrl = pathname + 'children' + queries;
 
-        return this.getContentByFriendlyUrl(callUrl, Object.assign({parameters, params}));
+        return this.getContentByFriendlyUrl(callUrl, {...parameters, ...params});
     }
 };
