@@ -1,14 +1,17 @@
 ﻿export const EPI_UPDATE_CONTEXT = 'EPI_UPDATE_CONTEXT';
 
-const updateEpiContextAction = (inEditMode, isEditable) => ({
+export const updateEpiContextAction = (payload) => ({
     type: EPI_UPDATE_CONTEXT,
-    payload: {
-        inEditMode,
-        isEditable
-    }
+    payload
 });
 
+/**
+ * TODO
+ * DO I NEED THIS?
+ */
 export const updateEpiContext = () => dispatch => {
-
-    dispatch(updateEpiContextAction(true, true));
+    dispatch(updateEpiContextAction({
+        inEditMode: true,
+        isEditable: true
+    }));
 };

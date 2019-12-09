@@ -10,9 +10,9 @@
  * the model in the store during editing.
  */
 
-import store from '@/Scripts/store';
-import { UPDATE_CONTEXT } from '@/Scripts/store/modules/epiContext';
-import { UPDATE_MODEL_BY_CONTENT_LINK } from '@/Scripts/store/modules/epiDataModel';
+import { store } from '@/Scripts/index';
+import { updateEpiContextAction } from '@/Scripts/store/actions/epiContext';
+import { updateModelByContentLink } from '@/Scripts/store/actions/epiDataModel';
 
 function setContext() {
     // The `beta/epiReady` event only has `isEditable`, but the epi object has both.
@@ -21,13 +21,13 @@ function setContext() {
         isEditable: window.epi.beta.isEditable
     };
 
-    // Make the context available to all Vue components.
-    store.commit(UPDATE_CONTEXT, context);
+    // Make the context available to all React components.
+    store.dispatch(updateEpiContextAction(context));
 
     // If we're in an editable context we want to update the model on every change by the editor
     if (window.epi.beta.isEditable) {
         window.epi.subscribe('beta/contentSaved', message => {
-            store.dispatch(UPDATE_MODEL_BY_CONTENT_LINK, message.contentLink);
+            store.dispatch(updateModelByContentLink(message.contentLink));
         });
     }
 }

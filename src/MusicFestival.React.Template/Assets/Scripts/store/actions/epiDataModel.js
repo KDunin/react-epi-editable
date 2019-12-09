@@ -7,20 +7,13 @@ const updateModelAction = payload => ({
     payload
 });
 
-export const updateModelByUrl = (friendlyUrl) => dispatch => {
-    return epi
-        .getContentByFriendlyUrl(friendlyUrl)
-        .then(response => {
-            dispatch(updateModelAction(response.data));
-        });
+export const updateModelByUrl = friendlyUrl => async dispatch => {
+    const response = await epi.getContentByFriendlyUrl(friendlyUrl);
+    dispatch(updateModelAction(response.data));
 };
 
-export const updateModelByContentLink = (contentLink) => (dispatch, getState) => {
+export const updateModelByContentLink = (contentLink) => async (dispatch, getState) => {
     const { route } = getState();
-
-    return epi.getContentByContentLink(contentLink, route.query).then(response => {
-        console.log(response);
-
-        dispatch(updateModelAction(response.data));
-    });
+    const response = await epi.getContentByContentLink(contentLink, route.query);
+    dispatch(updateModelAction(response.data));
 };

@@ -8,7 +8,12 @@ import {Provider} from 'react-redux';
 import App from './App';
 import initStore from './store/store';
 
-const store = initStore();
+const files = require.context('@/Images/SVG', false, /.*\.svg$/);
+files.keys().forEach(files);
+
+export const store = initStore();
+
+import '@/Scripts/epiMessages';
 
 ReactDOM.render(
     <Provider store={store}>
