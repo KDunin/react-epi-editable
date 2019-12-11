@@ -12,28 +12,22 @@ import GenericBlock from '../components/blocks/GenericBlock';
 import ContentBlock from '../components/blocks/ContentBlock';
 import ImageFile from '../components/media/ImageFile';
 
+const components = {
+    LandingPage,
+    ArtistContainerPage,
+    ArtistDetailsPage,
+
+    LanguageSelector,
+    Hero,
+    ContentArea,
+
+    GenericBlock,
+    ContentBlock,
+    ImageFile
+};
 
 export default function getComponentTypeForContent(content) {
-    let components = {
-        LandingPage: LandingPage,
-        ArtistContainerPage,
-        ArtistDetailsPage,
-
-        LanguageSelector,
-        Hero,
-        ContentArea,
-
-        GenericBlock,
-        ContentBlock,
-        ImageFile
-    };
-
     // Here we will try to find a component that matches the content type name.
-    for (let i = content.contentType.length - 1; i >= 0; i--) {
-        if (components[content.contentType[i]]) {
-            const TagName = components[content.contentType[i]];
-            return <TagName model={content} />;
-        }
-    }
-    return null;
+    const Component = components[content.contentType.reverse().find(component => component in components) || 'GenericBlock'];
+    return Component ? <Component model={content} /> : null;
 }
