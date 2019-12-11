@@ -1,33 +1,25 @@
-﻿import React, { Component } from "react";
+﻿import React from "react";
+import { EpiProperty } from "./EpiProperty";
+import { useSelector } from "react-redux";
 
-export class Hero extends Component {
-    render() {
-        const { title, subtitle, heroimage } = this.props;
+export const Hero = ({ title, subtitle, heroimage }) => {
+    const heroStyles = {
+        backgroundImage: `url(${heroimage})`
+    };
+    const epiDisableEditing = useSelector(
+        ({ appContext }) => appContext.showModal
+    );
 
-        const heroStyles = {
-            backgroundImage: `url(${heroimage})`
-        };
-
-        return (
-            <section className="Hero">
-                <div className="Hero-content Page-container">
-                    <h1 data-epi-property-name="Title">{title}</h1>
-
-                    <h5 data-epi-property-name="Subtitle">{subtitle}</h5>
-
-                    {/* <epi-property
-                        v-show="!epiDisableEditing"
-                        property-name="HeroImage"
-                    ></epi-property> */}
-                </div>
-                <div
-                    className="Hero-image"
-                    v-if="heroimage"
-                    style={heroStyles}
-                ></div>
-            </section>
-        );
-    }
-}
+    return (
+        <section className="Hero">
+            <div className="Hero-content Page-container">
+                <h1 data-epi-edit="Title">{title}</h1>
+                <h5 data-epi-edit="Subtitle">{subtitle}</h5>
+                {!epiDisableEditing && <EpiProperty propertyName="HeroImage" />}
+            </div>
+            <div className="Hero-image" style={heroStyles}></div>
+        </section>
+    );
+};
 
 export default Hero;

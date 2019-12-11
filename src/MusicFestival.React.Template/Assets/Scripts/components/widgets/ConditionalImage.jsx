@@ -1,6 +1,4 @@
 import React from "react";
 
-export const ConditionalImage = ({ src, alt }) =>
-    src ? <img className="ConditionalImage" src={src} alt={alt} /> : <></>;
-
-export default ConditionalImage;
+export const ConditionalImage = ({ src, ...props }) =>
+    src && <img className="ConditionalImage" src={src} {...props} />;

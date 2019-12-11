@@ -1,135 +1,50 @@
-﻿import React from "react";
+﻿import React, { useState, useEffect } from "react";
+
 import LanguageSelector from "../widgets/LanguageSelector";
-import EpiLink from "../widgets/EpiLink";
+import { ArtistCard } from "../widgets/ArtistCard";
+import { BackButton } from "../widgets/BackButton";
 
 import epi from "../../api/epi";
 
-export class ArtistContainerPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isMounted: false,
-            artists: []
-        };
+const ArtistContainerPage = ({ model }) => {
+    const [artists, setArtists] = useState([]);
 
-        this.getChildren = this.getChildren.bind(this);
-    }
+    useEffect(() => {
+        getChildren();
+    }, []);
 
-    componentDidMount() {
-        this.getChildren();
-    }
-
-    componentWillUnmount() {
-        this.setState({
-            isMounted: false
+    const getChildren = () => {
+        epi.getChildren(model.url).then(response => {
+            setArtists(groupAlphabetically(response.data));
         });
-    }
+    };
 
-    getChildren() {
-        const { model } = this.props;
-        this.setState({
-            isMounted: true
-        });
-        const parameters = {};
+    return (
+        <>
+            <div className="ArtistContainerPage">
+                <nav className="Page-container PageHeader NavBar">
+                    <BackButton prevUrl={model.parentLink.url} />
+                    <LanguageSelector
+                        existingLanguages={model.existingLanguages}
+                        currentLanguage={model.language}
+                    />
+                </nav>
 
-        epi.getChildren(model.url, parameters).then(success => {
-            // sort response alphabetically
-            let artists = success.data.sort(
-                (a, b) => a.artistName > b.artistName
-            );
-
-            // // group them by first letter of artist name and store in data.artists object
-            // let artists = _.groupBy(ordered, artist => artist.artistName.substring(0, 1));
-
-            if (this.state.isMounted) {
-                this.setState({
-                    artists
-                });
-            }
-        });
-    }
-
-    render() {
-        const { model } = this.props;
-
-        return (
-            <div className="ArtistContainerPage bg-dark text-white">
-                <div className="container">
-                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <button
-                            className="navbar-toggler"
-                            type="button"
-                            data-toggle="collapse"
-                            data-target="#navbarText"
-                            aria-controls="navbarText"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation"
-                        >
-                            <span className="navbar-toggler-icon" />
-                        </button>
-
-                        <div
-                            className="collapse navbar-collapse"
-                            id="navbarText"
-                        >
-                            <ul className="navbar-nav mr-auto">
-                                <li className="nav-item ">
-                                    <EpiLink
-                                        classname="backButton"
-                                        url={model.parentUrl}
-                                    >
-                                        <img src="/Assets/Images/SVG/back.svg" />
-                                    </EpiLink>
-                                </li>
-                            </ul>
-                            <LanguageSelector
-                                existingLanguages={model.existingLanguages}
-                                currentLanguage={model.language}
-                            />
-                        </div>
-                    </nav>
-                </div>
-
-                <div className="container">
+                <div className="Page-container">
                     <div className="top gutter">
-                        <h1 data-epi-property-name="Name">{model.name}</h1>
+                        <h1 data-epi-edit="Name">{model.name}</h1>
                     </div>
-
                     <div className="list">
-                        {/* {_.map(this.state.artists, (letter, key) => {
-							return (
-								<div key={key}>
-									<h3>{key}</h3>
-									{_.map(letter, artist => {
-										return (
-
-										);
-									})}
-								</div>
-							);
-						})} */}
-                        {this.state.artists.map(artist => (
-                            <EpiLink
-                                classname=""
-                                url={artist.url}
-                                key={artist.contentLink.id}
-                            >
-                                <div className="row align-items-center mb-3">
-                                    <div className="col-1">
-                                        <img
-                                            className="card-img"
-                                            src={artist.artistPhoto}
-                                            alt="Card image"
-                                        />
-                                    </div>
-                                    <div className="col-9">
-                                        <h5 className="mb-0">
-                                            {artist.artistName}
-                                        </h5>
-                                        <p>{artist.artistGenre}</p>
-                                    </div>
-                                </div>
-                            </EpiLink>
+                        {artists.map(([letter, items], index) => (
+                            <div key={`${letter}-${index}`}>
+                                <h3>{letter}</h3>
+                                {items.map((artist, index) => (
+                                    <ArtistCard
+                                        key={`${artist.artistName}-${index}`}
+                                        artist={artist}
+                                    />
+                                ))}
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -140,8 +55,51 @@ export class ArtistContainerPage extends React.Component {
                     </div>
                 </footer>
             </div>
-        );
-    }
-}
+            <style jsx>
+                {`
+                    .top h1 {
+                        text-transform: none;
+                        margin: 0 40px 0 40px;
+                        padding: 0.3em 0;
+                    }
+
+                    @media (min-width: 425px) {
+                        .top h1 {
+                            margin-right: 140px;
+                        }
+                    }
+
+                    h3 {
+                        text-transform: uppercase;
+                        width: 100%;
+                        text-align: center;
+                        background: rgba(236, 64, 122, 0.24);
+                        padding: 5px 0 7px;
+                        margin: 0;
+                    }
+                `}
+            </style>
+        </>
+    );
+};
 
 export default ArtistContainerPage;
+
+/**
+ * Sorts artists alphabetically and group them by first letter of artist name
+ */
+const groupAlphabetically = data => {
+    const sorted = data.sort((a, b) => a.artistName > b.artistName);
+
+    return Object.entries(
+        sorted.reduce((acc, item) => {
+            const firstNameLetter = item.artistName.charAt(0);
+            if (firstNameLetter in acc) {
+                acc[firstNameLetter].push(item);
+            } else {
+                acc[firstNameLetter] = [item];
+            }
+            return acc;
+        }, {})
+    );
+};

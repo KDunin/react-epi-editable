@@ -1,0 +1,1 @@
+﻿export const conditionClass = (condition, class1, class2 = '') => condition ? class1 : class2;

@@ -1,88 +1,57 @@
-﻿import React, { Component } from 'react';
+﻿import React from "react";
 
-import LanguageSelector from '../widgets/LanguageSelector';
-import EpiLink from '../widgets/EpiLink';
+import LanguageSelector from "../widgets/LanguageSelector";
+import { BackButton } from "../widgets/BackButton";
+import { ArtistImage } from "../widgets/ArtistImage";
+import { EpiProperty } from "../widgets/EpiProperty";
+import { formatDateTime } from "../../utils/dateUtils";
 
-export class ArtistDetailsPage extends Component {
-    render() {
-        const { model } = this.props;
-        console.log(model);
+export const ArtistDetailsPage = ({ model }) => {
+    return (
+        <>
+            <div className="ArtistDetailsPage">
+                <nav className="Page-container PageHeader NavBar">
+                    <BackButton prevUrl={model.parentLink.url} />
+                    <LanguageSelector
+                        existingLanguages={model.existingLanguages}
+                        currentLanguage={model.language}
+                    />
+                </nav>
 
-        return (
-            <div className="ArtistDetailsPage bg-dark text-white">
-                <div className="container">
-                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <button
-                            className="navbar-toggler"
-                            type="button"
-                            data-toggle="collapse"
-                            data-target="#navbarText"
-                            aria-controls="navbarText"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation"
-                        >
-                            <span className="navbar-toggler-icon" />
-                        </button>
-
-                        <div
-                            className="collapse navbar-collapse"
-                            id="navbarText"
-                        >
-                            <ul className="navbar-nav mr-auto">
-                                <li className="nav-item ">
-                                    <EpiLink
-                                        classname="backButton"
-                                        url={model.parentUrl}
-                                    >
-                                        <img src="/Assets/Images/SVG/back.svg" />
-                                    </EpiLink>
-                                </li>
-                            </ul>
-                            <LanguageSelector
-                                existingLanguages={model.existingLanguages}
-                                currentLanguage={model.language}
-                            />
-                        </div>
-                    </nav>
-                </div>
-
-                <div className="container">
-                    <div className="row">
-                        <div className="col">
-                            <img
-                                src={model.artistPhoto}
-                                alt=""
-                                className="img-fluid"
-                            />
-                        </div>
-                    </div>
+                <div className="Page-container u-posRelative">
+                    <ArtistImage
+                        name={model.artistName}
+                        imageUrl={model.artistPhoto}
+                    />
 
                     <div className="top">
-                        <h1 data-epi-property-name="ArtistName">
-                            {model.artistName}
-                        </h1>
+                        <h1 data-epi-edit="ArtistName">{model.artistName}</h1>
                     </div>
+
+                    <EpiProperty propertyName="ArtistPhoto" />
+                    <EpiProperty propertyName="ArtistGenre" />
+                    <EpiProperty propertyName="ArtistIsHeadliner" />
 
                     <div className="artist-information">
                         <p
-                            data-epi-property-name="StageName"
+                            data-epi-edit="StageName"
                             dangerouslySetInnerHTML={{
                                 __html: model.stageName
                             }}
                         />
                         <p>
-                            <span data-epi-property-name="PerformanceStartTime">
-                                {model.performanceStartTime}
-                            </span>{' '}
-                            -{' '}
-                            <span data-epi-property-name="PerformanceEndTime">
-                                {model.performanceEndTime}
+                            <span data-epi-edit="PerformanceStartTime">
+                                {formatDateTime(model.performanceStartTime)}
+                            </span>
+                            <span> - </span>
+                            <span data-epi-edit="PerformanceEndTime">
+                                {formatDateTime(model.performanceEndTime)}
                             </span>
                         </p>
                     </div>
                     <div className="artist-description">
                         <p
-                            data-epi-property-name="ArtistDescription"
+                            data-epi-edit="ArtistDescription"
                             dangerouslySetInnerHTML={{
                                 __html: model.artistDescription
                             }}
@@ -96,8 +65,70 @@ export class ArtistDetailsPage extends Component {
                     </div>
                 </footer>
             </div>
-        );
-    }
-}
+            <style jsx>
+                {`
+                    @import "src/MusicFestival.React.Template/Assets/Styles/Common/variables.less";
+
+                    .ArtistDetailsPage {
+                        position: relative;
+                        padding-bottom: 46px;
+                    }
+
+                    .top {
+                        text-align: center;
+                        position: absolute;
+                        width: 100%;
+                    }
+
+                    .top h1 {
+                        position: relative;
+                        font-size: 1em;
+                        top: -2.5em;
+                    }
+
+                    .artist-information p {
+                        margin: 0.55em 0;
+                        font: 12px @fontSubHeading;
+                        text-transform: uppercase;
+                    }
+
+                    .artist-information,
+                    .artist-description {
+                        margin: 0 10px;
+                    }
+
+                    @media (min-width: 768px) {
+                        .artist-information,
+                        .artist-description {
+                            margin: 0;
+                        }
+                    }
+
+                    .FooterBottom {
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        height: 46px;
+                    }
+
+                    @media (min-width: 768px) {
+                        .top h1 {
+                            font-size: 2em;
+                            top: -2em;
+                        }
+                    }
+
+                    @media (min-width: 1224px) {
+                        .top h1 {
+                            font-size: 2.5em;
+                            top: -1.5em;
+                        }
+                    }
+                `}
+            </style>
+        </>
+    );
+};
 
 export default ArtistDetailsPage;

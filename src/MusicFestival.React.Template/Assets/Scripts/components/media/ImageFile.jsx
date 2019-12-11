@@ -1,15 +1,9 @@
-﻿import React, { Component } from 'react';
+﻿import React from "react";
 
-export class ImageFile extends Component {
-    render() {
-        const { model } = this.props;
-
-        return (
-            <div className="ImageFile">
-                <img className="img-fluid" src={model.url} alt="alt" />
-            </div>
-        );
-    }
-}
+export const ImageFile = ({ model }) => (
+    <div className="ImageFile">
+        <img className="img-fluid" src={model.url} alt={model.url} />
+    </div>
+);
 
 export default ImageFile;

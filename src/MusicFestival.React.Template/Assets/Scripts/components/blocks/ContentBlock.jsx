@@ -1,5 +1,6 @@
 ﻿import React from "react";
-import ConditionalImage from "../widgets/ConditionalImage";
+import { ConditionalImage } from "../widgets/ConditionalImage";
+import { EpiProperty } from "../widgets/EpiProperty";
 
 const ContentBlock = ({ model }) => {
     const imageAlignment =
@@ -15,8 +16,8 @@ const ContentBlock = ({ model }) => {
                         <ConditionalImage
                             src={model.image}
                             alt={model.title}
-                            v-epi-edit="'Image'"
-                        ></ConditionalImage>
+                            data-epi-edit="Image"
+                        />
                     </div>
                 )}
                 <div
@@ -25,14 +26,14 @@ const ContentBlock = ({ model }) => {
                     }`}
                 >
                     <h2
-                        v-epi-edit="'Title'"
+                        data-epi-edit="Title"
                         dangerouslySetInnerHTML={{ __html: model.title }}
                     ></h2>
                     <div
-                        v-epi-edit="'Content'"
+                        data-epi-edit="Content"
                         dangerouslySetInnerHTML={{ __html: model.content }}
                     ></div>
-                    {/* <epi-property v-if="!model.image" property-name="image"></epi-property> */}
+                    {!model.image && <EpiProperty propertyName="image" />}
                 </div>
             </div>
         </div>

@@ -1,35 +1,24 @@
-﻿import React, { Component } from "react";
+﻿import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { updateModelByUrl } from "../store/actions/epiDataModel";
-import getComponentTypeForContent from "../api/getComponentTypeFromContent";
+import getComponentTypeForContent from "../api/getComponentTypeForContent";
 
-class PageComponentSelector extends Component {
-    componentDidMount() {
-        const url = this.props.location.pathname;
-        this.props.updateModelByUrl(url);
+const PageComponentSelector = ({ model, modelLoaded, updateModelByUrl }) => {
+    const { pathname, search } = useLocation();
+    const url = pathname + search;
 
-        this.props.history.listen(() => {
-            console.log("location changed", url);
+    useEffect(() => {
+        updateModelByUrl(url);
+    }, [pathname, search]);
 
-            // if (url !== url) {
-            // }
-        });
-    }
+    return modelLoaded ? getComponentTypeForContent(model) : <></>;
+};
 
-    render() {
-        const { model, modelLoaded } = this.props;
-        return modelLoaded ? (
-            getComponentTypeForContent(model)
-        ) : (
-            <React.Fragment></React.Fragment>
-        );
-    }
-}
-
-const mapStateToProps = ({ epiDataModel }) => ({
+const mapStateToProps = ({ epiDataModel, epiContext }) => ({
     model: epiDataModel.model,
+    context: epiContext,
     modelLoaded: epiDataModel.modelLoaded
 });
 
@@ -37,6 +26,7 @@ const mapDispatchToProps = dispatch => ({
     updateModelByUrl: url => dispatch(updateModelByUrl(url))
 });
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(PageComponentSelector)
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PageComponentSelector);

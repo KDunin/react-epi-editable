@@ -340,8 +340,8 @@
     <Content Include="Assets\Images\pattern-wave.svg" />
     <Content Include="Assets\Images\SVG\back.svg" />
     <Content Include="Assets\Images\wave.svg" />
-    <Content Include="Assets\Scripts\api\getComponentTypeFromContent.js" />
     <Content Include="Assets\Scripts\components\BlockComponentSelector.jsx" />
+    <Content Include="Assets\Scripts\components\blocks\BuyTicketBlock.jsx" />
     <Content Include="Assets\Scripts\components\blocks\ContentBlock.jsx" />
     <Content Include="Assets\Scripts\components\blocks\GenericBlock.jsx" />
     <Content Include="Assets\Scripts\components\ContentArea.jsx" />
@@ -349,34 +349,33 @@
     <Content Include="Assets\Scripts\components\PageComponentSelector.jsx" />
     <Content Include="Assets\Scripts\components\pages\ArtistContainerPage.jsx" />
     <Content Include="Assets\Scripts\components\pages\ArtistDetailsPage.jsx" />
+    <Content Include="Assets\Scripts\components\widgets\ArtistCard.jsx" />
+    <Content Include="Assets\Scripts\components\widgets\ArtistImage.jsx" />
     <Content Include="Assets\Scripts\components\widgets\EpiLink.jsx" />
+    <Content Include="Assets\Scripts\components\widgets\EpiProperty.jsx" />
+    <Content Include="Assets\Scripts\components\widgets\EpiViewModeLink.jsx" />
     <Content Include="Assets\Scripts\components\widgets\Hero.jsx" />
     <Content Include="Assets\Scripts\components\widgets\ConditionalImage.jsx" />
+    <Content Include="Assets\Scripts\components\widgets\BackButton.jsx" />
     <Content Include="Assets\Scripts\components\widgets\LanguageSelector.jsx" />
     <Content Include="Assets\Scripts\components\widgets\Modal.jsx" />
     <Content Include="Assets\Scripts\index.js" />
     <Content Include="Assets\Scripts\App.jsx" />
     <Content Include="Assets\Scripts\components\pages\LandingPage.jsx" />
-    <Content Include="Assets\Scripts\config\routes.js" />
     <Content Include="Assets\Scripts\api\epi.js" />
+    <Content Include="Assets\Scripts\api\getComponentTypeForContent.js" />
     <Content Include="Assets\Scripts\store\actions\appContext.js" />
     <Content Include="Assets\Scripts\store\actions\epiContext.js" />
     <Content Include="Assets\Scripts\store\actions\epiDataModel.js" />
     <Content Include="Assets\Scripts\store\reducers\epiContext.js" />
-    <Content Include="Assets\Scripts\store\reducers\appContext.jsx" />
     <Content Include="Assets\Scripts\store\store.js" />
     <Content Include="Assets\Scripts\store\reducers\rootReducer.js" />
     <Content Include="Assets\Scripts\store\reducers\epiDataModel.js" />
-    <Content Include="Assets\Scripts\api\api.js" />
-    <Content Include="Assets\Scripts\api\getComponentTypeForContent.js" />
+    <Content Include="Assets\Scripts\utils\apiUtils.js" />
+    <Content Include="Assets\Scripts\utils\classUtils.js" />
     <Content Include="Assets\Scripts\constants.js" />
-    <Content Include="Assets\Scripts\directives\epiEdit.js" />
     <Content Include="Assets\Scripts\epiMessages.js" />
-    <Content Include="Assets\Scripts\store\index.js" />
-    <Content Include="Assets\Scripts\store\modules\appContext.js" />
-    <Content Include="Assets\Scripts\store\modules\epiContext.js" />
-    <Content Include="Assets\Scripts\store\modules\epiDataModel.js" />
-    <Content Include="Assets\Styles\Common\variables.js" />
+    <Content Include="Assets\Scripts\utils\dateUtils.js" />
     <Content Include="Content\editor.css" />
     <Content Include="postcss.config.js" />
     <Content Include="webpack.config.js" />
@@ -463,9 +462,9 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <PropertyGroup>
-    <PreBuildEvent>npm run build</PreBuildEvent>
-  </PropertyGroup>
+  <!-- <PropertyGroup> -->
+  <!-- <PreBuildEvent>npm run build</PreBuildEvent> -->
+  <!-- </PropertyGroup> -->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
       Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

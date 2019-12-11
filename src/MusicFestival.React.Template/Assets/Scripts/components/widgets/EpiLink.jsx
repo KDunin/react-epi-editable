@@ -1,48 +1,22 @@
-﻿import React, { Component } from "react";
-import { connect } from "react-redux";
+﻿import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-class EpiLink extends Component {
-    render() {
-        const { classname, url, inEditMode } = this.props;
+const EpiLink = ({ className, url, children, ...props }) => {
+    const inEditMode = useSelector(({ epiContext }) => epiContext.inEditMode);
+    const TagName =
+        inEditMode || url.match(/^(http(s)?|ftp):\/\//) ? "a" : Link;
 
-        if (inEditMode) {
-            return (
-                <a
-                    href={url}
-                    className={classname + " " + "edit-mode"}
-                    data-editmode={inEditMode}
-                >
-                    {this.props.children}
-                </a>
-            );
-        }
-
-        return url.match(/^(http(s)?|ftp):\/\//) ? (
-            <a href={url} className={classname}>
-                {this.props.children}
-            </a>
-        ) : (
-            <Link
-                className={classname}
-                to={url}
-                data-editmode={this.inEditMode}
-            >
-                {this.props.children}
-            </Link>
-        );
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {};
+    return (
+        <TagName
+            href={url}
+            to={url}
+            className={`EPiLink ${className}`}
+            {...props}
+        >
+            {children}
+        </TagName>
+    );
 };
 
-const mapStateToProps = ({ epiContext }) => {
-    return {
-        inEditMode: epiContext.inEditMode,
-        isEditable: epiContext.isEditable
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(EpiLink);
+export default EpiLink;

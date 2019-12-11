@@ -1,6 +1,7 @@
-﻿import epi from '../../api/epi';
+﻿import epi from "../../api/epi";
+import { getParamsFromUrl } from "../../utils/apiUtils";
 
-export const EPI_DATA_MODEL_UPDATE = 'EPI_DATA_MODEL_UPDATE';
+export const EPI_DATA_MODEL_UPDATE = "EPI_DATA_MODEL_UPDATE";
 
 const updateModelAction = payload => ({
     type: EPI_DATA_MODEL_UPDATE,
@@ -12,8 +13,12 @@ export const updateModelByUrl = friendlyUrl => async dispatch => {
     dispatch(updateModelAction(response.data));
 };
 
-export const updateModelByContentLink = (contentLink) => async (dispatch, getState) => {
-    const { route } = getState();
-    const response = await epi.getContentByContentLink(contentLink, route.query);
+export const updateModelByContentLink = contentLink => async dispatch => {
+    /**
+     * TODO
+     * Do I need to implement route in store?
+     */
+    const params = getParamsFromUrl();
+    const response = await epi.getContentByContentLink(contentLink, params);
     dispatch(updateModelAction(response.data));
 };
