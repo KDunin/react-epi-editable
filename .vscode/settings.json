@@ -6,16 +6,10 @@
   "prettier.singleQuote": true,
   "prettier.jsxSingleQuote": true,
   "workbench.colorCustomizations": {
-    "activityBar.background": "#2fd0fa",
-    "activityBar.activeBorder": "#da05ae",
-    "activityBar.foreground": "#ffffff",
-    "activityBar.inactiveForeground": "#ffffff99",
-    "activityBarBadge.background": "#da05ae",
-    "activityBarBadge.foreground": "#e7e7e7",
-    "statusBar.background": "#2fd0fa",
-    "statusBarItem.hoverBackground": "#06c0f0",
+    "statusBar.background": "#c8725a",
+    "statusBarItem.hoverBackground": "#b3563c",
     "statusBar.foreground": "#ffffff",
-    "tab.activeBorder": "#2fd0fa"
+    "statusBar.border": "#c8725a"
   },
-  "peacock.color": "#61DBFB"
+  "peacock.color": "#d59380"
 }

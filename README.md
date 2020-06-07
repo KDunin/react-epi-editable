@@ -63,7 +63,7 @@ To avoid having multiple razor files the pages and blocks have their own control
 ```
 DefaultPageController.cs
     DefaultPage/Index.cshtml
-        DefaultPage.vue
+        DefaultPage.jsx
             router-view (React.js)
                 router.js (Updates the store model with the url)
                     PageComponentSelector.jsx (Use the model from the store)
@@ -82,7 +82,3 @@ PreviewController.cs
 -   `npm run webpack-build-dev`: Builds a development package.
 -   `npm run webpack-watcher`: Builds a development package, and re-builds automatically when relevant files are changed.
 -   `npm run webpack-build-prod`: Builds a production package.
-
-## Debugging Vuex state
-
-Using the [Vue-devtools](https://github.com/vuejs/vue-devtools) to see the state changes in the store in view mode works as expected. There are however some limitations to follow state changes when you are editing in Episerver edit mode because of the site is running inside an iframe. To be able to see the vuex state while editing you need to run the stand alone electron app as described on the github page: [Vue standalone Electron app](https://github.com/vuejs/vue-devtools/blob/master/shells/electron/README.md).

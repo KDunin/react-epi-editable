@@ -58,11 +58,11 @@ namespace MusicFestival.Template.Infrastructure.Owin
 
             if (requestUri.IsAbsoluteUri)
             {
-                return requestUri.PathAndQuery.StartsWith("/" + RouteConstants.BaseContentApiRoute);
+                return requestUri.PathAndQuery.StartsWith("/" + RouteConstants.VersionTwoApiRoute);
             }
             else
             {
-                return requestUri.ToString().StartsWith("/" + RouteConstants.BaseContentApiRoute);
+                return requestUri.ToString().StartsWith("/" + RouteConstants.VersionTwoApiRoute);
             }
         }
     }
